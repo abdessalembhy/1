@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> X or O </title>
+    <link rel="stylesheet" type="text/css" href="Style.css">
+</head>
+<body style="background-color: black">
+<h1  style="color: brown; font-size: 300%  ; text-align: center "  >
+    <span>jeu XO </span>
+</h1>
+<div style="color: beige">
+    choisir X ou O: <input type="text" id="myChoix" value="X ou O">
+    choisir position: <input type="text" id="myPosition" value="--">
+    <button onclick="myFunction()">valide ton choix</button>
+
+</div>
+
+
+
+
+
+<p   id="content" style="text-align: center; color: beige ;background-color: blue ; font-size: 600%" ></p>
+<!--<p id="content1"></p>-->
+<p style="text-align: center; color: beige ;background-color: blue ; font-size: 600%" > <span id="content2"></span>
+</p>
+
+<script>
+
+    var board = [[1, 2,3], [4, 5,6], [7, 8,9]];
+var x;
+var arrayPosition=[];
+var arrayX=["-"];
+var arrayO=[];
+var arChoix=[];
+var y;
+var i=0;
+var j =1;
+var k=0;
+// 4 si notre choix X ajouté X à leur position si non ajouté O a leurs position, si l'entré n'est pas valable affiché un message
+    function addToBoard(testPosition , callback) {
+        if (testPosition) {
+            if (x === "X") {
+                arrayX.push(y);
+                arrayPosition.push(y);
+                board[y[0]][y[1]] = x;
+                console.log(board);
+                k=k+1;
+            }
+            else if (x === "O") {
+                arrayO.push(y);
+                arrayPosition.push(y);
+                    arChoix.push(x);
+                board[y[0]][y[1]] = x;
+                console.log(board);
+                k=k+1;
+            }
+            else {
+                alert("Choisir X ou O")
+            }
+        }
+// 5 appele le function de résultat final
+        callback();
+    }
+// 6 affiche le résultat final
+    function resultatFinal() {
+        if( (board[0][0] ==="X" &&  board[0][1] ==="X" && board[0][2] === "X") ||
+            (board[0][0] ==="X" &&  board[1][0] ==="X" && board[2][0] === "X") ||
+            (board[0][0] ==="X" &&  board[1][1] ==="X" && board[2][2] === "X") ||
+            (board[0][2] ==="X" &&  board[1][1] ==="X" && board[2][0] === "X") ||
+            (board[0][2] ==="X" &&  board[1][2] ==="X" && board[2][2] === "X") ||
+            (board[2][0] ==="X" &&  board[2][1] ==="X" && board[2][2] === "X") ||
+            (board[0][1] ==="X" &&  board[1][1] ==="X" && board[2][1] === "X") ||
+            (board[1][0] ==="X" &&  board[1][1] ==="X" && board[1][2] === "X")
+        ){
+            document.getElementById("content").innerHTML = "X Win conglaturation ";
+            alert("X Win conglaturation ");
+        }
+        else if ( (board[0][0] ==="O" &&  board[0][1] ==="O" && board[0][2] === "O") ||
+            (board[0][0] ==="O" &&  board[1][0] ==="O" && board[2][0] === "O") ||
+            (board[0][0] ==="O" &&  board[1][1] ==="O" && board[2][2] === "O") ||
+            (board[0][2] ==="O" &&  board[1][1] ==="O" && board[2][0] === "O") ||
+            (board[0][2] ==="O" &&  board[1][2] ==="O" && board[2][2] === "O") ||
+            (board[2][0] ==="O" &&  board[2][1] ==="O" && board[2][2] === "O") ||
+            (board[0][1] ==="O" &&  board[1][1] ==="O" && board[2][1] === "O") ||
+            (board[1][0] ==="O" &&  board[1][1] ==="O" && board[1][2] === "O"))
+        {
+            document.getElementById("content").innerHTML = "O Win conglaturation ";
+            alert("O Win conglaturation ");
+        }
+        else if (k===9){
+            document.getElementById("content").innerHTML = "Le partie est nul";
+            alert("Le partie est null");
+        }
+
+
+    }
+var oldChoice = "";
+    // 1 test le entre de position validé ou non
+
+    function myFunction() {
+        var finalScore = false;
+        var testPosition = true;
+        y = document.getElementById("myPosition").value;
+//        document.getElementById("content1").innerHTML = "";
+        for (i=0; i<=y.length ; i++) {
+            if (y[i]>2 || y.length !== 2 || arrayPosition.indexOf(y)!== -1 ) {
+                alert("entre deux chiffre inferieur a 2 OU la position déja utiliser");
+                testPosition = false;
+                break;
+            }
+        }
+  // 2 si le position validé passer ou valeur X ou O le même ou non
+        if (testPosition){
+            x = document.getElementById("myChoix").value;
+            if (x === oldChoice){
+                alert("changer le choix");
+                return null;
+            }
+
+        }
+        if (x==="O" || x==="X") {
+            oldChoice = x;
+        }
+// 3 passer à la changement de notre board et après l'affichage de résultat
+        addToBoard(testPosition, resultatFinal );
+        document.getElementById("content2").innerHTML =  board[0] + "<br> "+ board[1] +"<br>"+ board[2]   ;
+    }
+
+</script>
+</body>
+</html>
